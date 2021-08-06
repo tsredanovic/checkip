@@ -9,6 +9,7 @@ IP_REGEX = r'(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][
 class BaseProvider:
     def get_ip(self):
         response = requests.get(self.url)
+        response.raise_for_status()
         return re.search(IP_REGEX, response.text).group(0)
 
 

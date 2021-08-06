@@ -29,8 +29,8 @@ pip install checkip
 
 ## Usage
 
-## Get WAN IP
-Use provider's code to fetch your WAN IP from that provider.
+## Get IP
+Use provider's code to fetch your public (WAN) IP from that provider.
 
 ```python
 from checkip.ip import get_ip
