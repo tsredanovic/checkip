@@ -2,6 +2,7 @@
 
 Resolves public (WAN) IP from supported providers.
 
+
 ## Providers
 
 | Code           | URL                                          |
@@ -21,24 +22,36 @@ Resolves public (WAN) IP from supported providers.
 | nsupdate       | http://ipv4.nsupdate.info/myip               |
 | zoneedit       | http://dynamic.zoneedit.com/checkip.html     |
 
+
 ## Installation
 
 ```bash
 pip install checkip
 ```
 
+
 ## Usage
 
-## Get IP
-Use provider's code to fetch your public (WAN) IP from that provider.
+### Get IP
+Use provider's code to fetch your public IP from that provider.
 
 ```python
 from checkip.ip import get_ip
 
-print(get_ip('cloudflare'))
+get_ip('cloudflare')
 ```
 
-# License
+### Resolve IP
+Use multiple provider's codes to resolve your most commonly returned public IP.
+
+```python
+from checkip.ip import resolve_ip
+
+resolve_ip(['cloudflare', 'dyndns', 'freedns'])
+```
+
+
+## License
 
 **CheckIP** is a free software under terms of the `MIT License`.
 
