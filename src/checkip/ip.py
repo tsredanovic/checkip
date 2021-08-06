@@ -1,7 +1,7 @@
 import threading
 from typing import Counter
 
-from checkip.exceptions import InvalidProviderError
+from checkip.exceptions import IPUnresolvedError, InvalidProviderError
 from checkip.providers import providers_dict
 
 def get_provider_instance(provider_code):
@@ -32,5 +32,7 @@ def resolve_ip(providers):  # TODO add strict mode where number of most commong 
         t.join()
     
     ip_counts = Counter(results.values())
+    if not ip_counts:
+        raise IPUnresolvedError
 
     return ip_counts.most_common()[0][0]  # TODO add exception for when ip_counts.most_common() == []
