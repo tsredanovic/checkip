@@ -1,11 +1,22 @@
+import inspect
 import re
+import sys
 
 import requests
 
-from checkip.exceptions import IPNotFoundError
-
+from checkip.exceptions import IPNotFoundError, InvalidProviderError
 
 IP_REGEX = r'(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
+
+providers = {}
+
+def register_provider(provider):
+    if not getattr(provider, 'code', None):
+        raise InvalidProviderError('Provider is missing `code` attribute')
+    if provider.code in providers.keys():
+        raise InvalidProviderError('Provider\'s code `{}` is already registered'.format(provider.code))
+
+    providers[provider.code] = provider
 
 
 class BaseProvider:
@@ -92,21 +103,8 @@ class HttpbinProvider(BaseProvider):
     url = 'https://httpbin.org/ip'
 
 
-providers_list = [
-    DyndnsProvider,
-    FreednsProvider,
-    GoogledomainsProvider,
-    HeProvider,
-    Ip4onlyProvider,
-    IpfyProvider,
-    LoopiaProvider,
-    MyonlineportalProvider,
-    NoipProvider,
-    NsupdateProvider,
-    ZoneeditProvider,
-    CloudflareProvider,
-    MyipProvider,
-    HttpbinProvider,
-]
-
-providers_dict = {provider.code: provider for provider in providers_list}
+# Register providers
+class_members = inspect.getmembers(sys.modules[__name__], inspect.isclass)
+for name, klass in class_members:
+    if issubclass(klass, BaseProvider) and klass != BaseProvider:
+        register_provider(klass)

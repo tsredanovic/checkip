@@ -31,9 +31,16 @@ class IPNotFoundError(Exception):
 
 
 class IPUnresolvedError(Exception):
-    """Exception raised when IP address can't be resolved since non of the providers returned a valid IP address. """
+    """Exception raised when IP address can't be resolved since non of the providers returned a valid IP address."""
 
     def __init__(self):
         self.message = 'None of the providers returned a valid IP'
         super().__init__(self.message)
 
+
+class InvalidProviderError(Exception):
+    """Exception raised when there is something wrong with provider class."""
+
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
