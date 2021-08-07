@@ -50,6 +50,46 @@ from checkip.ip import resolve_ip
 resolve_ip(['cloudflare', 'dyndns', 'freedns'])
 ```
 
+### Register Custom Provider
+You can create your own custom providers by extending the `BaseProvider` base class.
+
+Attribute `code` must be defined on each custom provider which can not match any already registered code.
+
+To succesfully get an IP from a custom provider you can either:
+
+1. Define attribute `URL` on your custom provider class. By default the IP address will be parsed from that URL's response.
+
+```python
+from checkip.providers import BaseProvider, register_provider
+from checkip.ip import get_ip
+
+class MyProvider(BaseProvider):
+    code = 'myprovider'
+    url = 'https://example.com/ip'
+
+register_provider(MyProvider)
+
+get_ip('myprovider')
+```
+
+2. Overwrite the provider's `get_ip` method for even more customization:
+
+```python
+from checkip.providers import BaseProvider, register_provider
+from checkip.ip import get_ip
+
+class MyProvider(BaseProvider):
+    code = 'myprovider'
+    
+    def get_ip(self):
+        response = requests.get('https://example.com/ip.json')
+        response.raise_for_status()
+        return response.json()['ip']
+
+register_provider(MyProvider)
+
+get_ip('myprovider')
+```
 
 ## License
 
