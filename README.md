@@ -36,7 +36,7 @@ pip install checkip
 Use provider's code to fetch your public IP from that provider.
 
 ```python
-from checkip.ip import get_ip
+from checkip import get_ip
 
 get_ip('cloudflare')
 ```
@@ -45,7 +45,7 @@ get_ip('cloudflare')
 Use multiple provider's codes to resolve your most commonly returned public IP.
 
 ```python
-from checkip.ip import resolve_ip
+from checkip import resolve_ip
 
 resolve_ip(['cloudflare', 'dyndns', 'freedns'])
 ```
@@ -61,7 +61,7 @@ To succesfully get an IP from a custom provider you can either:
 
 ```python
 from checkip.providers import BaseProvider, register_provider
-from checkip.ip import get_ip
+from checkip import get_ip
 
 class MyProvider(BaseProvider):
     code = 'myprovider'
@@ -76,7 +76,7 @@ get_ip('myprovider')
 
 ```python
 from checkip.providers import BaseProvider, register_provider
-from checkip.ip import get_ip
+from checkip import get_ip
 
 class MyProvider(BaseProvider):
     code = 'myprovider'
