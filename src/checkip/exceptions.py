@@ -31,7 +31,7 @@ class IPNotFoundError(Exception):
 
 
 class IPUnresolvedError(Exception):
-    """Exception raised when IP address can't be resolved since non of the providers returned a valid IP address."""
+    """Exception raised when IP address can't be resolved since none of the providers returned a valid IP address."""
 
     def __init__(self):
         self.message = 'None of the providers returned a valid IP'
