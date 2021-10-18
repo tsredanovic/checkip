@@ -91,6 +91,24 @@ register_provider(MyProvider)
 get_ip('myprovider')
 ```
 
+
+## CLI Usage
+
+### Get IP
+Use provider's code to fetch your public IP from that provider.
+
+```bash
+$ checkip get cloudflare
+```
+
+### Resolve IP
+Use multiple provider's codes to resolve your most commonly returned public IP.
+
+```bash
+$ checkip resolve cloudflare dyndns freedns
+```
+
+
 ## License
 
 **CheckIP** is a free software under terms of the `MIT License`.
